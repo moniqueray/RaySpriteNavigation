@@ -13,6 +13,9 @@
 var ghost;
 var speed = 10;
 
+//additional sprite
+var butterfly;
+
 // The is a static sprite
 var star;
 var starImg;
@@ -32,21 +35,30 @@ function setup() {
 
   // create a sprite with dimensions
   ghost = createSprite(400, 150);
+  butterfly = createSprite(400,150);
 
   // This is a *numbered* sequence of PNG files
   // We add animation to different sprites
   ghost.addAnimation('floating', 'assets/ghost_standing0001.png', 'assets/ghost_standing0007.png');
+  butterfly.addAnimation('floating','assets/butterfly-01.png','assets/butterfly-02.png');
   
+
   // create a star in the middle of the screen
-  //star = createSprite(width/2, height/2);
-  //star.addImage('star', starImg);
+  star = createSprite(width/2, height/2);
+  star.addImage('star', starImg);
 
   frameRate(30);
  }
 
 // Draw code goes here
 function draw() {
-  // could draw a PNG file here
+
+  //disappearing sprites if they collide
+  if (ghost.overlap(star)) {
+    ghost.visible = false;
+  } else {
+    ghost.visible = true;
+  }
   background(255);
 
   // trap keyboard arrow keys
